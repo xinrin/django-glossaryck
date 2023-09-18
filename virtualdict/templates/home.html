@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+<div class="container">
+    {% if user.is_authenticated %}
+        <div class="continer py-3">
+            <div class="row card card-body title">
+                <div class="col">
+                    <h1 class="text-center fw-bold display-4" style="color: rgb(43, 43, 43);">¡Bienvenido/a a Glossaryck, {{username}}! </h1>
+                </div>
+            </div>
+
+            <div class="row card2 justify-content-between">
+                <div class="col-lg-4 col-md-12 col-sm-12 offset-lg-1 mt-4 mb-4">
+                    <h2 class="text-center">¿Buscas tus conceptos, {{username}}? ¡Aquí están!</h2>
+                    <div class="row justify-content-between">
+                        <a class="card5 col-auto m-auto text-center" href="{% url 'defconcepts' %}">
+                            <h3 class="xlargertxt">Conceptos</h3>
+                        </a>
+                    </div>
+                    
+                </div>
+
+
+                <div class="col-auto m-auto">
+                    <img src="{% static 'images/glossaryc2.png' %}" width="auto" height="150px" alt="">
+                </div>
+            </div>
+
+            <div class="container pt-5 text-center">
+                <h1 class="card2 p-3">Es bueno tenerte de vuelta ❤</h1>
+            </div>
+
+            <div class="glosbg">
+                <div class="row justify-content-between">
+                    <a class="card3 col-lg-4 text-center" href="{% url 'profile' user.username %}">
+                        <h3 class="xlargertxt">Perfil</h3>
+                    </a>
+
+                    <a class="card4 col-lg-4 text-center" href="{% url 'logout' %}">
+                        <h3 class="xlargertxt">Cerrar sesión</h3>
+                    </a>
+                    
+                </div>
+            </div>
+            
+            
+        </div>
+
+    {% else %}
+
+        <div class="continer py-3">
+            <div class="row card card-body title">
+                <div class="col">
+                    <h1 class="text-center fw-bold display-4" style="color: rgb(43, 43, 43);">¡Bienvenido a Glossaryck! Tu asistente de conceptos y más</h1>
+                </div>
+            </div>
+
+            <div class="row card1">
+                <div class="col-auto m-auto">
+                    <img src="{% static 'images/glossaryc1.webp' %}" width="auto" height="350px" alt="">
+                </div>
+
+                <div class="col-lg-6 col-md-12 col-sm-12 offset-lg-1 mt-4 mb-4">
+                    <h2 class="">Hola, soy Glossaryck ¡Y estoy aquí para ayudarte!</h2>
+                    <p class="largertxt card-text">¿Nunca te has preguntado si podrías hacer más rápido ciertas tareas? ¿Ciertos apuntes? ¿Notas?</p>
+                    
+                </div>
+
+                
+            </div>
+
+            <div class="row card2 justify-content-between">
+                <div class="col-lg-4 col-md-12 col-sm-12 offset-lg-1 mt-4 mb-4">
+                    <h2 class="">Bueno, ¡Deja de pensarlo!</h2>
+                    <p class="largertxt card-text">¡Todas tus ideas y pensamientos son una realidad hoy conmigo!</p>
+                    <p class="largertxt card-text">Te ayudaré a tomar notas, tener más productividad y lo más importante, contar con un glosario completo y presentable (es mi especialidad ;b).</p>
+                </div>
+
+
+                <div class="col-auto m-auto">
+                    <img src="{% static 'images/glossaryc2.png' %}" width="auto" height="150px" alt="">
+                </div>
+            </div>
+
+            <div class="container pt-3 text-center">
+                <h1 class="card2 p-3">Regístrate ahora o inicia sesión</h1>
+            </div>
+
+            <div class="glosbg">
+                <div class="row justify-content-between">
+                    <a class="card3 col-lg-4 text-center" href="{% url 'register' %}">
+                        <h3 class="xlargertxt">Registrarse</h3>
+                    </a>
+    
+                    <a class="card4 col-lg-4 text-center" href="{% url 'login' %}">
+                        <h3 class="xlargertxt">Iniciar sesión</h3>
+                    </a>
+                </div>
+            </div>
+            
+            
+        </div>
+    {% endif %}
+
+</div>
+
+
+
+
+
+
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<main class="container py-3 mb-5">
+    <section class="row mb-4">
+        <div class="container">
+            <h1 class="display-3 mb-4 text-danger">¿Eliminar Concepto?</h1>
+            <div class="card card-body m-5">
+                <header class="d-flex justify-content-between">
+                    <h1 class="card-title">{{concept.title}}</h2>
+                </header>
+                <ul class="list-unstyled">
+                    <li class="bd-links-span-all mt-1 mb-3 mx-4 border-top"></li>
+    
+                    <li>
+                        <p class="card-text" style="font-size: larger!important;">{{concept.definition}}</p>
+                    </li>
+    
+                    <li>
+                        <p class="card-text" style="font-size: larger!important;">{{concept.exampleText}}</p>
+                    </li>
+                </ul>
+                <div class="text-center">
+                    {% if concept.exampleImg %}
+                        <img src="{{concept.exampleImg.url}}" alt="example img" style="height: auto;" width="200px" class="img-thumbnail">
+                    {% endif %}
+                </div>
+                <div class="text-end">
+                    <p style="font-style: italic;">{{concept.source}}</p>
+                </div>
+
+                <div class="row justify-content-center mt-auto">
+                    <div class="col-auto m-2">
+                        <a class="btn btn-success btn-lg" href="{% url 'defconcepts' %}">Regresar</a>
+                    </div>
+
+                    <div class="col-auto m-2">
+                        <form method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger btn-lg">Borrar</button>
+                        </form>
+                    </div>
+                </div>
+                        
+                
+            </div>
+        </div>
+        
+        
+    
+    </section> 
+</main>
+
+
+
+{% endblock %}

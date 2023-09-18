@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+{% if concept %}
+    <button class="invisiblebtn" id="collapseNewConceptBtn" aria-expanded="true" data-bs-toggle="collapse" data-bs-target="#btncollapse"  aria-controls="btncollapse"></button>
+{% endif %}
+
+<main class="container py-3 mb-5">
+    <div class="row justify-content-center">
+
+        <div class="col-auto">
+            <h1 class="display-3 mb-4 text-center">Conceptos definidos</h1>
+        </div>
+
+        {% if concept %}
+        <div class="col-auto me-1 mt-auto">
+            <div class="fixed-bottom offset-lg-10 offset-md-9 offset-sm-8 mb-3 me-md-3 collapse show" id="btncollapse">
+                <a id="newconcept" class="btn btn-success btn-lg" href="{% url 'newconcept' %}">
+                    Nuevo concepto
+                </a>
+            </div>
+        </div>
+
+        
+        {% endif %}
+    </div>
+
+    <div class="container mb-2">
+        <div class="row justify-content-center">
+            <form class="d-flex col-lg-6">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-light" type="submit">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                      </svg>
+                </button>
+              </form>
+        </div>
+    </div>
+    
+    <section class="row mb-4">
+
+    {% if not concept %}
+        <div class="card card-body mb-4 m-2 col-xl-3 col-md-4">
+            <div class="row">
+                <div class="col">
+                    <h2 class="text-center">Parece que no tienes ningún concepto aún, ¡Vamos a crear uno!</h2>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <div class="text-center mt-2">
+                        <a class="btn btn-success btn-lg" href="{% url 'newconcept' %}">Agregar concepto</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    {% endif %}
+    
+    {% for concept in concept %}
+            <div class="card card-body mb-4 m-2 col-xl-3 col-md-4">
+                <header class="d-flex justify-content-between">
+                    <h1 class="card-title">{{concept.title}}</h2>
+                    <p>{{forloop.counter}}</p>
+                </header>
+                <ul class="list-unstyled">
+                    <li class="bd-links-span-all mt-1 mb-3 mx-4 border-top"></li>
+    
+                    <li>
+                        <p class="card-text" style="font-size: larger!important;">{{concept.definition}}</p>
+                    </li>
+    
+                    <li>
+                        <p class="card-text" style="font-size: larger!important;">{{concept.exampleText}}</p>
+                    </li>
+                </ul>
+                <div class="text-center">
+                    {% if concept.exampleImg %}
+                        <img src="{{concept.exampleImg.url}}" alt="example img" style="height: auto;" width="200px" class="img-thumbnail btn" data-toggle="modal" data-target="#largerimg" onclick="store(this.src)">
+                    {% endif %}
+                </div>
+                <div class="text-end">
+                    <p style="font-style: italic;">{{concept.source}}</p>
+                </div>
+                
+                <div class="row justify-content-between mt-auto">
+                    <div class="col-auto">
+                        <a class="mt-auto btn btn-success" href="{% url 'concept_detail' concept.id %}">Editar</a>
+                    </div>
+
+                    <div class="col-auto">
+                        <a class="mt-auto btn btn-danger" href="{% url 'concept_delete' concept.id  %}">Borrar</a>
+                    </div>
+                </div>
+                
+                
+            </div>
+        
+    {% endfor %}
+    
+    </section> 
+
+    <div class="modal fade" id="largerimg" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+ 
+                <div class="modal-body p-2 container" style="height: fit-content; width: fit-content;">
+                    <img id="imageid" src="" alt="Click on button" height="100%" width="100%" style="size-adjust: 30%;" >
+                </div>
+ 
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-close" data-dismiss="modal"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</main>
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+<script>
+    function store(src){
+        var sour = src
+        document.getElementById("imageid").src = sour
+    }
+</script>
+
+
+
+{% endblock %}

@@ -1,0 +1,208 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glossaryck</title>
+
+    <!-- including bootstrap-->
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    
+</head>
+
+<head>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top" data-bs-theme="dark" id="navbar">
+        <div class="container-fluid">
+            <a href="/">
+                <img class="navbar-brand" src="{% static '/images/glossaryc_face_ico.png' %}" id="logo">
+            </a>
+
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          
+          <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href=" {% url 'home' %} ">Inicio</a>
+                </li>
+                {% if user.is_authenticated %}
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'defconcepts' %}">Conceptos</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'newconcept' %}">Nuevo concepto</a>
+                    </li>
+                {% endif %}
+                    
+            </ul>
+
+            <div class="ms-5">
+                <ul class="navbar-nav">
+                    <li class="nav-item py-2 py-lg-1 col-12 col-lg-auto">
+                        <div class="vr d-none d-lg-flex h-100 mx-lg-2 text-white"></div>
+                        <hr class="d-lg-none my-2 text-white-50">
+                    </li>
+
+                    
+                    {% if user.is_authenticated %}
+                    
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'profile' user.username %}">Perfil-{{user.username}}</a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'logout' %}">Cerrar sesión</a>
+                    </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'login' %}">Iniciar sesión</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'register' %}">Registrarse</a>
+                        </li>
+                    {% endif %}
+                    
+                </ul>
+              </div>
+          </div>
+
+          
+            
+        </div>
+      </nav>
+</head>
+
+<body class="bcolor d-flex flex-column min-vh-100">
+    {% block content %}
+        
+    {% endblock %}
+</body>
+
+<footer class="mt-auto" id="foot">
+    <div class="container-fluid mb-5 mt-5">
+        <h3>Glossaryck, coded with ❤ by Cherry</h3>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col mb-3">
+                <h1>🍒</h1>
+            </div>
+          
+              <div class="col mb-3">
+          
+              </div>
+          
+              <div class="col mb-3">
+                <h5>Contacto</h5>
+                <ul class="nav flex-column">
+                    <li class="nav-item mb-2"><a href="https://www.instagram.com/chrry_kei/" target="_blank" class="nav-link p-0">Instagram</a></li>
+                  <li class="nav-item mb-2"><a href="https://twitter.com/chrry_kei" target="_blank" class="nav-link p-0">Twitter</a></li>
+                  <li class="nav-item mb-2"><a href="https://twitch.tv/cherry_kei" target="_blank" class="nav-link p-0">Twitch</a></li>
+                  <li class="nav-item mb-2"><a href="https://discord.gg/J95CJAwt6J" target="_blank" class="nav-link p-0">Discord Server</a></li>
+                  <li class="nav-item mb-2"><a href="https://github.com/EmaOlmos?tab=repositories" target="_blank" class="nav-link p-0">Github</a></li>
+                </ul>
+              </div>
+          
+              <div class="col mb-3">
+                <h5>Sitio</h5>
+                <ul class="nav flex-column">
+                  <li class="nav-item mb-2"><a href="{% url 'home' %}" class="nav-link p-0">Inicio</a></li>
+                  <li class="nav-item mb-2"><a href="{% url 'login' %}" class="nav-link p-0">Iniciar sesión</a></li>
+                  <li class="nav-item mb-2"><a href="{% url 'register' %}" class="nav-link p-0">Registrarse</a></li>
+                  {% if user.is_authenticated %}
+                    <li class="nav-item mb-2"><a href="{% url 'defconcepts' %}" class="nav-link p-0">Conceptos</a></li>
+                    <li class="nav-item mb-2"><a href="{% url 'newconcept' %}" class="nav-link p-0">Nuevo concepto</a></li>
+                  {% endif %}
+                  
+                </ul>
+              </div>
+          
+              <div class="col mb-3">
+                <h5>Links de interés</h5>
+                <ul class="nav flex-column">
+                  <li class="nav-item mb-2"><a href="https://docs.djangoproject.com/en/4.2/" target="_blank" class="nav-link p-0">Django documentation</a></li>
+                  <li class="nav-item mb-2"><a href="https://getbootstrap.com/" target="_blank" class="nav-link p-0">Bootstrap</a></li>
+                  <li class="nav-item mb-2"><a href="https://www.postgresql.org/" target="_blank" class="nav-link p-0">PostgreSQL</a></li>
+                </ul>
+              </div>
+
+        <div class="row">
+            <div class="col-lg-6">
+                <p style="margin-bottom: 0;">Todos los derechos reservados ©2023</p>
+            </div>
+                <div class="col-lg-6">
+                    <a href="#" style="margin-bottom: 0;">Aviso de privacidad</a>
+                </div>
+        </div>
+    </div>
+    
+</footer>
+
+
+<script>
+    var clicked = false
+    addEventListener("DOMContentLoaded", () => {
+        document.getElementById("btncollapse").classList.replace("offset-sm-8","offset-sm-1")
+        if(document.body.scrollHeight < 1100){
+            document.getElementById("btncollapse").classList.remove("fixed-bottom")
+        }
+    })
+
+    window.onscroll = function(){
+        //console.log(window.scroll.toString)
+        if(document.body.scrollTop > 50 || document.documentElement.scrollTop > 50){
+            document.getElementById("navbar").style.padding = "1px, 1px"
+            document.getElementById("navbar").style.opacity = "1"
+            document.getElementById("logo").style.width = "35px"
+        }else{
+            document.getElementById("navbar").style.padding = "1px 1px"
+            document.getElementById("navbar").style.opacity = "1"
+            document.getElementById("logo").style.width = "70px"
+
+        }
+
+        if(window.location.href.match(/defconcepts/g)){
+            var actualheight = document.body.scrollHeight - window.innerHeight - 50
+
+            /*console.log("Inner Height:" + window.innerHeight)
+            console.log("Scroll body height: " + document.body.scrollHeight)
+            console.log("Scroll y:" + window.scrollY)
+            console.log("Actual height:" + actualheight)*/
+
+            if(window.scrollY == 0){
+                document.getElementById("btncollapse").classList.replace("offset-sm-8","offset-sm-1")
+                document.getElementById("btncollapse").classList.remove("fixed-bottom")
+            }else{
+                document.getElementById("btncollapse").classList.replace("offset-sm-1","offset-sm-8")
+                document.getElementById("btncollapse").classList.add("fixed-bottom")
+            }
+
+            if(window.scrollY > actualheight){
+            document.getElementById("newconcept").classList.add("disabled")
+                if(clicked == false){
+                    document.getElementById("collapseNewConceptBtn").click()
+                    clicked = true
+                }
+            }else{
+                document.getElementById("newconcept").classList.remove("disabled")
+                if(clicked == true){
+                    document.getElementById("collapseNewConceptBtn").click()
+                    clicked = false
+                }
+            }
+        }
+        
+    }
+</script>
+
+</html>
