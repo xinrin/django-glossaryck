@@ -140,14 +140,17 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 #S3 buckets (aws)
 
+
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3StaticStorage'
 AWS_S3_FILE_OVERWRITE = False
 AWS_DEFAULT_ACL = None
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-STATICFILES_STORAGE = 'storages.backends.s3boto3.S3StaticStorage'
 
-AWS_ACCESS_KEY_ID = 'AKIAY6RP3QSEEOSRPQWK'
-AWS_SECRET_ACCESS_KEY = '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'
+AWS_ACCESS_KEY_ID = 'AKIAY6RP3QSEDZE6YR2S'
+AWS_SECRET_ACCESS_KEY = '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'
 AWS_STORAGE_BUCKET_NAME = 'cherrylilbucket'
 
-
+AWS_S3_SIGNATURE_NAME = 's3v4',
+AWS_S3_REGION_NAME = 'us-east-1'
+AWS_S3_VERITY = True
 

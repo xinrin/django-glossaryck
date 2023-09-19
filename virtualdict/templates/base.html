@@ -152,10 +152,13 @@
 <script>
     var clicked = false
     addEventListener("DOMContentLoaded", () => {
-        document.getElementById("btncollapse").classList.replace("offset-sm-8","offset-sm-1")
-        if(document.body.scrollHeight < 1100){
+        if(window.location.href.match(/defconcepts/g)){
+            document.getElementById("btncollapse").classList.replace("offset-sm-8","offset-sm-1")
+            if(document.body.scrollHeight < 1100){
             document.getElementById("btncollapse").classList.remove("fixed-bottom")
+            }
         }
+  
     })
 
     window.onscroll = function(){

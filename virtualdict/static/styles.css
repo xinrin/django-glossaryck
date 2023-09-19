@@ -58,7 +58,7 @@ footer{
     border-radius: 30px;
 }
 .glosbg{
-    background-image: url("/static/images/glossaryc3.png");
+    background-image: url("{% static 'images/glossaryc3.png' %}");
     background-repeat: no-repeat, no-repeat;
     height: 500px;
     width: 100%;
