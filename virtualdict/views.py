@@ -136,7 +136,7 @@ def reg(request):
         
         if request.POST['password'] == request.POST['password2']:
             #print(request.POST)
-            try:
+            #try:
                 user = User.objects.create_user(username=request.POST['username'],email=request.POST['email'],password=request.POST['password'])
                 user.save()
                 login(request,user)
@@ -144,7 +144,8 @@ def reg(request):
                     'username': user.username,
                 })
             
-            except:
+            #except Exception as e:
+                print(e)
                 return render(request,"register.html",{
                 'error':'Algo salio mal :('
             })
