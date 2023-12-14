@@ -2,12 +2,69 @@
 
 {% block content %}
 
-<div class="container mt-3">
-    <div class="row">
-        <div class="card card-body">
-            <h1 class="text-center">Proximamente c;</h1>
+<main class="container py-3 mb-5">
+
+
+    <div class="container mt-5">
+        <div class="row">
+            <!-- Sección de la izquierda con la foto de perfil y datos personales -->
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="{% if perfil.foto %}{{ perfil.foto.url }}{% else %} /static/images/empty_pfp.png {% endif %}"
+                        class="card-img-top" alt="Foto de perfil">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ user.username }}</h5>
+                        <p class="card-text">{{ user.email }}</p>
+                        <a href="#" class="btn btn-primary">Editar Perfil</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sección del centro con la biografía y caja de comentarios -->
+            <div class="col-md-8">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Biografía</h5>
+                        <p class="card-text">Contenido de la biografía del usuario.</p>
+                    </div>
+                </div>
+
+
+                <!-- Sección de arriba con el botón para ir a la página de Posts en una tarjeta -->
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">Conceptos del Usuario</h5>
+                                <a href="{% url 'userconcepts' user.username %}" class="btn btn-success">Ir a Conceptos</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mt-4">
+                    <div class="card-body">
+                        <div class="card-body">
+                            <h5 class="card-title">Comentarios</h5>
+                            <!-- Aquí puedes incluir una caja de comentarios -->
+                            <!-- Por ejemplo, utilizando un formulario -->
+                            <form method="post">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    <textarea class="form-control" name="contenido"
+                                        placeholder="Escribe un comentario"></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Comentar</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+
+
     </div>
-</div>
+
+</main>
 
 {% endblock %}

@@ -1,5 +1,5 @@
 from django import forms
-from .models import Concepts
+from .models import Concepts,Reviews
 
 class ConceptsForm(forms.ModelForm):
     class Meta:
@@ -34,3 +34,8 @@ class ConceptsForm(forms.ModelForm):
                 'placeholder':'De los deseos',
             })
         }
+
+class ReviewsForm(forms.ModelForm):
+    class Meta:
+        model = Reviews
+        fields = ['review']

@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+
+
+<main class="container py-3 mb-5">
+    <div class="card card-body mb-4 m-2 ">
+        <header class="d-flex justify-content-between">
+            <h1 class="card-title">{{concept.title}}</h2>
+        </header>
+        <ul class="list-unstyled">
+            <li class="bd-links-span-all mt-1 mb-3 mx-4 border-top"></li>
+
+            <li>
+                <p class="card-text" style="font-size: larger!important;">{{concept.definition}}</p>
+            </li>
+
+            <li>
+                <p class="card-text" style="font-size: larger!important;">{{concept.exampleText}}</p>
+            </li>
+        </ul>
+        <div class="text-center">
+            {% if concept.exampleImg %}
+                <img src="{{concept.exampleImg.url}}" alt="example img" style="height: auto;" width="200px" class="img-thumbnail btn" data-toggle="modal" data-target="#largerimg" onclick="store(this.src)">
+            {% endif %}
+        </div>
+        <div class="text-end">
+            <p style="font-style: italic;">Fuente: {{concept.source}}</p>
+              <p style="font-style: italic;">Autor: 
+                <a href="{% url 'profile' concept.user.username %}">
+                <b>{{concept.user.username}}</b> 
+              </a>
+              </p>
+            </a>
+            
+        </div>
+
+
+        <form action="{% url 'concept_reaction' concept.id %}" method="POST">
+            {% csrf_token %}
+            <div class="d-flex flex-row">
+                <div class="col-auto">   
+                    
+                    <button class="{% if user_review.review %} btn btn-outline-success mb-3 {% else %} btn mb-3 {% endif %}" 
+                    id="green" type="submit" value="like" name="reaction"><i class="fa fa-thumbs-up fa-lg" aria-hidden="true"></i>{{positive}}</button>
+                </div>
+                <div class="col-auto">
+                    <button class="{% if user_review.review is none %} btn mb-3 {% elif user_review.review is False %} btn btn-outline-danger mb-3 {% else %} btn mb-3  {% endif %}"
+                    id="red" type="submit" value="False" name="reaction"><i class="fa fa-thumbs-down fa-lg" aria-hidden="true"></i>{{negative}}</button>
+                </div>
+            </div>
+
+        </form>
+
+         {% if concept.user.username == actual_user %}
+
+         <div class="d-flex flex-row">
+          <div class="col-auto">
+              <a class=" btn btn-success" href="{% url 'concept_detail' concept.id %}">Editar</a>
+          </div>
+
+          <div class="col-auto">
+              <a class=" btn btn-danger" href="{% url 'concept_delete' concept.id  %}">Borrar</a>
+          </div>
+          
+        </div>
+          
+         {% endif %}
+            
+
+    </div>
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-8 col-lg-6">
+          <div class="card card-body" >
+            <div class="card-body p-4">
+              
+              <div class="form-outline mb-4">
+                    <form class="d-flex " action="{% url 'concept_comment' concept.id %}" method="POST" >
+                        {% csrf_token %}
+                        <textarea class="form-control me-2" type="comentario" id="comentario" name="comentario" placeholder="Escribe un comentario.."></textarea>
+                        <button class="btn btn-primary" type="submit">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-return-left" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5"/>
+                          </svg>
+                        </button>
+                      </form>
+            </div>
+
+
+
+              {% for comentario in comentarios %}
+                <!-- .0 = perfil-->
+                <!-- .1 = comentario-->
+              <div class="card mb-4">
+                <div class="card-body">
+                  <p>{{comentario.1.texto}}</p>
+                  <div class="d-flex justify-content-between">
+                    <div class="d-flex flex-row align-items-center">
+                      <img src="{% if comentario.0.foto %}{{ comentario.0.foto.url }}{% else %} /static/images/empty_pfp.png {% endif %}"
+                      width="25"
+                      height="25"> 
+                      <a href="{% url 'profile' comentario.1.user.username %}">
+
+                      <!--img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(4).webp" alt="avatar" width="25"
+                        height="25" /-->
+                      <b class="small mb-0 ms-2">{{comentario.1.user.username}}</b>
+                    </a>
+                      <p class="small mb-0 ms-2">{{comentario.1.fecha_publicacion}}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+                
+              {% endfor %}
+      
+            </div>
+          </div>
+        </div>
+      </div>
+
+</main>
+
+<script src="https://use.fontawesome.com/fe459689b4.js"></script>
+<script>
+    function search(ele) {
+        if(event.key === 'Enter') {
+            alert(ele.value);        
+        }
+    }
+</script>
+
+
+
+{% endblock %}

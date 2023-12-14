@@ -12,6 +12,9 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 
+    <!-- Option 1: Include in HTML -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+
     <link rel="stylesheet" href="{% static 'styles.css' %}">
     
 </head>
@@ -32,10 +35,13 @@
                 <li class="nav-item">
                     <a class="nav-link" href=" {% url 'home' %} ">Inicio</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'concepts' %}">Conceptos</a>
+                </li>
                 {% if user.is_authenticated %}
 
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'defconcepts' %}">Conceptos</a>
+                        <a class="nav-link" href="{% url 'defconcepts' %}">Mis Conceptos</a>
                     </li>
 
                     <li class="nav-item">
@@ -89,29 +95,18 @@
 
 <footer class="mt-auto" id="foot">
     <div class="container-fluid mb-5 mt-5">
-        <h3>Glossaryck, coded with ❤ by Cherry</h3>
+        <!--h3>Glossaryck, coded with ❤ by Cherry</h3-->
     </div>
 
     <div class="container">
         <div class="row">
             <div class="col mb-3">
-                <h1>🍒</h1>
             </div>
           
               <div class="col mb-3">
           
               </div>
           
-              <div class="col mb-3">
-                <h5>Contacto</h5>
-                <ul class="nav flex-column">
-                    <li class="nav-item mb-2"><a href="https://www.instagram.com/chrry_kei/" target="_blank" class="nav-link p-0">Instagram</a></li>
-                  <li class="nav-item mb-2"><a href="https://twitter.com/chrry_kei" target="_blank" class="nav-link p-0">Twitter</a></li>
-                  <li class="nav-item mb-2"><a href="https://twitch.tv/cherry_kei" target="_blank" class="nav-link p-0">Twitch</a></li>
-                  <li class="nav-item mb-2"><a href="https://discord.gg/J95CJAwt6J" target="_blank" class="nav-link p-0">Discord Server</a></li>
-                  <li class="nav-item mb-2"><a href="https://github.com/EmaOlmos?tab=repositories" target="_blank" class="nav-link p-0">Github</a></li>
-                </ul>
-              </div>
           
               <div class="col mb-3">
                 <h5>Sitio</h5>
@@ -119,8 +114,9 @@
                   <li class="nav-item mb-2"><a href="{% url 'home' %}" class="nav-link p-0">Inicio</a></li>
                   <li class="nav-item mb-2"><a href="{% url 'login' %}" class="nav-link p-0">Iniciar sesión</a></li>
                   <li class="nav-item mb-2"><a href="{% url 'register' %}" class="nav-link p-0">Registrarse</a></li>
+                  <li class="nav-item mb-2"><a href="{% url 'concepts' %}" class="nav-link p-0">Conceptos</a></li>
                   {% if user.is_authenticated %}
-                    <li class="nav-item mb-2"><a href="{% url 'defconcepts' %}" class="nav-link p-0">Conceptos</a></li>
+                    <li class="nav-item mb-2"><a href="{% url 'defconcepts' %}" class="nav-link p-0">Mis conceptos</a></li>
                     <li class="nav-item mb-2"><a href="{% url 'newconcept' %}" class="nav-link p-0">Nuevo concepto</a></li>
                   {% endif %}
                   
@@ -130,6 +126,7 @@
               <div class="col mb-3">
                 <h5>Links de interés</h5>
                 <ul class="nav flex-column">
+                  <li class="nav-item mb-2"><a href="https://github.com/xinrin/django-glossaryck" target="_blank" class="nav-link p-0">GitHub</a></li>
                   <li class="nav-item mb-2"><a href="https://docs.djangoproject.com/en/4.2/" target="_blank" class="nav-link p-0">Django documentation</a></li>
                   <li class="nav-item mb-2"><a href="https://getbootstrap.com/" target="_blank" class="nav-link p-0">Bootstrap</a></li>
                   <li class="nav-item mb-2"><a href="https://www.postgresql.org/" target="_blank" class="nav-link p-0">PostgreSQL</a></li>

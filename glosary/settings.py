@@ -110,13 +110,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
-
-TIME_ZONE = 'UTC'
-
-USE_I18N = True
-
+# settings.py
 USE_TZ = True
+TIME_ZONE = 'America/Mexico_City'
 
 
 # Static files (CSS, JavaScript, Images)
@@ -129,4 +125,6 @@ STATIC_URL = 'static/'
 MEDIA_URL = '/images/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'virtualdict/static/images')
+
+
 

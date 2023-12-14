@@ -28,8 +28,9 @@
 
     <div class="container mb-2">
         <div class="row justify-content-center">
-            <form class="d-flex col-lg-6">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <form class="d-flex col-lg-6" method="POST">
+                {% csrf_token %}
+                <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search" id="search" name="search">
                 <button class="btn btn-light" type="submit">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                         <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
@@ -45,7 +46,11 @@
         <div class="card card-body mb-4 m-2 col-xl-3 col-md-4">
             <div class="row">
                 <div class="col">
+                    {% if global %}
+                    <h2 class="text-center">Parece que no hay ningún concepto aún, ¡Vamos a crear uno!</h2>
+                    {% else %}
                     <h2 class="text-center">Parece que no tienes ningún concepto aún, ¡Vamos a crear uno!</h2>
+                    {% endif %}
                 </div>
             </div>
 
@@ -83,20 +88,38 @@
                     {% endif %}
                 </div>
                 <div class="text-end">
-                    <p style="font-style: italic;">{{concept.source}}</p>
-                </div>
-                
-                <div class="row justify-content-between mt-auto">
-                    <div class="col-auto">
-                        <a class="mt-auto btn btn-success" href="{% url 'concept_detail' concept.id %}">Editar</a>
-                    </div>
+                    <p style="font-style: italic;">Fuente: {{concept.source}}</p>
+                    {% if global %}
+                    <p style="font-style: italic;">Autor: 
+                        <a href="{% url 'profile' concept.user.username %}"><b></b>{{concept.user.username}}</a>
+                    </p>
+                    {% endif %}
 
-                    <div class="col-auto">
-                        <a class="mt-auto btn btn-danger" href="{% url 'concept_delete' concept.id  %}">Borrar</a>
-                    </div>
                 </div>
-                
-                
+
+             
+             <div class="row justify-content-between mt-auto">
+                {% if not global %}
+                  {% if autor %}
+
+                  <div class="col-auto">
+                    <a class=" btn btn-success" href="{% url 'concept_detail' concept.id %}">Editar</a>
+                </div>
+      
+                <div class="col-auto">
+                    <a class=" btn btn-danger" href="{% url 'concept_delete' concept.id  %}">Borrar</a>
+                </div>
+                    
+                  {% endif %}
+
+                {% endif %} 
+                <div class="col-auto">
+                    <a class="btn btn-primary" href="{% url 'concept_view' concept.id  %}">Mas detalles</a>
+                </div>
+
+                  </div>
+             
+                </div>             
             </div>
         
     {% endfor %}
